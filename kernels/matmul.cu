@@ -9,6 +9,19 @@
 
 #define BLOCK_SIZE 32
 
+/*
+GPU Spec:
+NVIDIA GeForce RTX 3090
+Compute Capability 8.6
+10496 CUDA Cores
+
+Results:
+
+CPU execution time: 0.092326 milliseconds
+GPU execution time: 0.000334 milliseconds
+GPU speed up over CPU: 276.210206x
+*/
+
 void initRand(float *mat, int m, int n) {
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {

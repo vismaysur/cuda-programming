@@ -8,6 +8,9 @@
 
 /*
 GPU Spec:
+NVIDIA GeForce RTX 3090
+Compute Capability 8.6
+10496 CUDA Cores
 
 Results:
 
