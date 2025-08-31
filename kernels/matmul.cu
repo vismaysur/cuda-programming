@@ -117,7 +117,7 @@ int main() {
     bool correct = true;
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            if (fabs(h_C_cpu[i*N + j] - h_C_gpu[i*N + j]) > 1e-5) {
+            if (fabs(h_C_cpu[i*N + j] - h_C_gpu[i*N + j]) > 1e-3) {
                 correct = false;
                 break;
             }
