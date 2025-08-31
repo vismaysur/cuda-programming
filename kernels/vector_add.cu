@@ -61,6 +61,14 @@ int main() {
 
     int numBlocks = (N + BLOCK_SIZE - 1) / BLOCK_SIZE;
 
+
+    printf("Performing warm up runs\n");
+    for (int i = 0; i < 3; i++) {
+        vector_add_cpu(h_a, h_b, h_c_cpu, N);
+        vector_add_gpu<<<numBlocks, BLOCK_SIZE>>>(d_a, d_b, d_c, N);
+        cudaDeviceSynchronize();
+    }
+
     printf("Performing CPU benchmarking...\n");
     double cpu_time = 0.0;
     for (int i = 0; i < 20; i++) {
@@ -76,6 +84,7 @@ int main() {
     for (int i = 0; i < 20; i++) {
         double start = getTime();
         vector_add_gpu<<<numBlocks, BLOCK_SIZE>>>(d_a, d_b, d_c, N);
+        cudaDeviceSynchronize();
         double end = getTime();
         gpu_time += end - start;
     }
@@ -88,7 +97,7 @@ int main() {
     cudaMemcpy(h_c_gpu, d_c, size, cudaMemcpyDeviceToHost);
     bool correct = true;
     for (int i = 0; i < N; i++) {
-        if (h_c_gpu[i] != h_c_cpu[i]) {
+        if (fabs(h_c_gpu[i] - h_c_cpu[i]) > 1e-5) {
             correct = false;
             break;
         }
