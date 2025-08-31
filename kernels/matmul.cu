@@ -113,7 +113,7 @@ int main() {
     printf("GPU execution time: %f milliseconds\n", gpu_time);
     printf("GPU speed up over CPU: %fx\n", cpu_time / gpu_time);
 
-    cudaMemcpy(h_C_gpu, d_C, size_C, cudaMemcpyHostToDevice);
+    cudaMemcpy(h_C_gpu, d_C, size_C, cudaMemcpyDeviceToHost);
     bool correct = true;
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
