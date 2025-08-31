@@ -1,4 +1,5 @@
 #include <cuda_runtime.h>
+#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -11,7 +12,7 @@
 void initRand(float *mat, int m, int n) {
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            mat[i * m + j] = (float)rand() / RAND_MAX;
+            mat[i * n + j] = (float)rand() / RAND_MAX;
         }
     }
 }
@@ -32,9 +33,9 @@ void matmul_cpu(float *A, float *B, float *C, int m, int k, int n) {
         for (int j = 0; j < n; j++) {
             float sum = 0.0f;
             for (int l = 0; l < k; l++) {
-                sum += A[i * m + l] * B[l * k + j]; 
+                sum += A[i * n + l] * B[l * n + j]; 
             }
-            C[i * m + j] = sum;
+            C[i * n + j] = sum;
         }
     }
 }
@@ -47,10 +48,10 @@ __global__ void matmul_gpu(float *A, float *B, float *C, int m, int k, int n) {
         float sum = 0.0f;
 
         for (int l = 0; l < k; l++) {
-            sum += A[i * m + l] * B[l * k + j]; 
+            sum += A[i * n + l] * B[l * n + j]; 
         }
 
-        C[i * m + j] = sum;
+        C[i * n + j] = sum;
     }
 }
 
@@ -116,7 +117,7 @@ int main() {
     bool correct = true;
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            if (fabs(h_C_cpu[i*M + j] - h_C_gpu[i*M + j]) > 1e-5) {
+            if (fabs(h_C_cpu[i*N + j] - h_C_gpu[i*N + j]) > 1e-5) {
                 correct = false;
                 break;
             }

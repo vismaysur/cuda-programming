@@ -6,6 +6,16 @@
 #define N 10000000
 #define BLOCK_SIZE 256
 
+/*
+GPU Spec:
+
+Results:
+
+CPU execution time: 47.795247 milliseconds
+GPU execution time: 0.153099 milliseconds
+GPU speed up over CPU: 312.185230x
+*/
+
 void initRand(float *vec, int n) {
     for (int i = 0; i < n; i++) {
         vec[i] = (float)rand() / RAND_MAX;
