@@ -8,7 +8,7 @@
 
 void initRand(float *vec, int n) {
     for (int i = 0; i < n; i++) {
-        vec[i] = rand();
+        vec[i] = (float)rand() / RAND_MAX;
     }
 }
 

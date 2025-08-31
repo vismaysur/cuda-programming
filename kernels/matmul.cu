@@ -11,7 +11,7 @@
 void initRand(float *mat, int m, int n) {
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            mat[i * m + j] = rand();
+            mat[i * m + j] = (float)rand() / RAND_MAX;
         }
     }
 }
