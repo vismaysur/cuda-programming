@@ -91,9 +91,9 @@ int main() {
     printf("Performing CPU benchmark.\n");
     double cpu_time = 0;
     for (int i = 0; i < 20; i++) {
-        int start = getTime();
+        double start = getTime();
         matmul_cpu(h_A, h_B, h_C_cpu, M, K, N);
-        int end = getTime();
+        double end = getTime();
         cpu_time += end - start;
     }
     cpu_time /= 20;
@@ -101,10 +101,10 @@ int main() {
     printf("Performing GPU benchmark.\n");
     double gpu_time = 0;
     for (int i = 0; i < 20; i++) {
-        int start = getTime();
+        double start = getTime();
         matmul_gpu<<<gridDim, blockDim>>>(d_A, d_B, d_C, M, K, N);
         cudaDeviceSynchronize();
-        int end = getTime();
+        double end = getTime();
         gpu_time += end - start;
     }
     gpu_time /= 20;
