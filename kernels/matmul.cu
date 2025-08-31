@@ -24,7 +24,7 @@ double getTime() {
         return -1;
     }
 
-    return ts.tv_sec + pow(ts.tv_nsec, -9);
+    return ts.tv_sec + ts.tv_nsec * 1e-9;
 }
 
 void matmul_cpu(float *A, float *B, float *C, int m, int k, int n) {
